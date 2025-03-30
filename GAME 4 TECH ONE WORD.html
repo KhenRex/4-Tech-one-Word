@@ -1,0 +1,3934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Pics One Word</title>
+    <!-- Combined CSS from both files -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Combined CSS from both files */
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* DYNAMIC GRADIENT BACKGROUND FOR EACH SCREEN */
+        .rules-screen, .game-start-screen, .new-loading-screen {
+            background: url('https://github.com/KhenRex/Bg_color/raw/main/Picsart_25-03-15_14-55-40-794.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .game-start-screen, .new-loading-screen {
+            display: none; /* Initially hidden */
+        }
+
+        /* GAME RULES SCREEN */
+        .rules-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+        }
+
+        .rules-screen svg {
+            width: 90%;
+            max-width: 800px;
+            height: auto;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        .rules-screen svg:hover {
+            animation: none;
+            transform: scale(1.05);
+        }
+
+        .rules-screen foreignObject {
+            overflow-y: auto;
+            max-height: 380px;
+            scrollbar-width: thin;
+            scrollbar-color: #7B68EE #16213E;
+        }
+
+        .rules-screen foreignObject::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .rules-screen foreignObject::-webkit-scrollbar-track {
+            background: #16213E;
+        }
+
+        .rules-screen foreignObject::-webkit-scrollbar-thumb {
+            background-color: #7B68EE;
+            border-radius: 10px;
+        }
+
+        /* GAME START SCREEN */
+        .game-start-screen {
+            background: url('https://github.com/KhenRex/Bg_color/raw/main/Picsart_25-03-15_14-55-40-794.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: none; /* Initially hidden */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            font-family: 'VT323', monospace;
+            color: #333;
+        }
+
+        .game-start-container {
+            position: relative;
+            text-align: center;
+            width: 100%;
+            max-width: 700px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.7);
+            overflow: hidden;
+        }
+
+        .sparkles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #FFD700;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle-animation 3s linear infinite;
+        }
+
+        @keyframes sparkle-animation {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        .logo-container {
+            position: relative;
+            width: 460px;
+            height: 460px;
+            margin: 0 auto 20px;
+            transform-style: preserve-3d;
+        }
+
+        .logo {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: pulse 2s infinite alternate;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            transform-style: preserve-3d;
+            transform: perspective(1000px) rotateX(0deg);
+            transition: transform 0.5s ease;
+        }
+
+        .logo:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .shine-effect {
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.6) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: skewX(-25deg);
+            animation: shine 4s ease-in-out infinite;
+        }
+
+        .glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            animation: glow 4s ease-in-out infinite alternate;
+        }
+
+        .title-container {
+            position: relative;
+            margin-bottom: 30px;
+            transform-style: preserve-3d;
+        }
+
+        .title {
+            font-family: 'Silkscreen', cursive;
+            font-size: 4.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #FFB700;
+            margin-bottom: 5px;
+            line-height: 1;
+            letter-spacing: 2px;
+            text-shadow: 
+                4px 4px 0 rgba(0,0,0,0.2),
+                -2px -2px 0 #FFF,
+                2px -2px 0 #FFF,
+                -2px 2px 0 #FFF,
+                2px 2px 0 #FFF;
+            image-rendering: pixelated;
+            animation: title-float 3s ease-in-out infinite alternate;
+        }
+
+        .subtitle {
+            position: relative;
+            font-family: 'Silkscreen', cursive;
+            font-size: 1.2rem;
+            color: #FFF;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 20px;
+            background: linear-gradient(90deg, #FFB700, #FFA000);
+            border-radius: 5px;
+            display: inline-block;
+            image-rendering: pixelated;
+            box-shadow: 
+                0 3px 0 #8B6000,
+                0 0 10px rgba(255, 183, 0, 0.5);
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+            animation: pulse-subtitle 2s infinite alternate;
+        }
+
+        .loading-bar-container {
+            position: relative;
+            width: 85%;
+            margin: 0 auto;
+            border: 4px solid #000;
+            padding: 2px;
+            border-radius: 0;
+            background-color: #222;
+            image-rendering: pixelated;
+            box-shadow: 0 0 0 2px #FFD700;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            height: 25px;
+            width: 100%;
+            background-color: #111;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: repeating-linear-gradient(
+                -45deg,
+                #FFD700,
+                #FFD700 10px,
+                #FFA500 10px,
+                #FFA500 20px
+            );
+            animation: loading 5s linear forwards; /* Animation takes 5 seconds */
+            position: relative;
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0) 50%
+            );
+        }
+
+        .pixel-blocks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .pixel-block {
+            height: 100%;
+            width: 5%;
+            border-right: 1px solid rgba(0,0,0,0.2);
+        }
+
+        .loading-text {
+            margin-top: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: #805500;
+            animation: blink 1s steps(2) infinite;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+            letter-spacing: 1px;
+            image-rendering: pixelated;
+        }
+
+        .pixel-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #FFD700;
+            image-rendering: pixelated;
+        }
+
+        .pixel-corner.top-left {
+            top: 5px;
+            left: 5px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .pixel-corner.top-right {
+            top: 5px;
+            right: 5px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .pixel-corner.bottom-left {
+            bottom: 5px;
+            left: 5px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .pixel-corner.bottom-right {
+            bottom: 5px;
+            right: 5px;
+            border-left: none;
+            border-top: none;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; /* Fill the bar completely in 5 seconds */ }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); box-shadow: 0 0 30px rgba(100, 200, 255, 0.8); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes pulse-subtitle {
+            0% { transform: scale(0.95); }
+            100% { transform: scale(1.05); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes shine {
+            0% { left: -150%; }
+            40%, 100% { left: 150%; }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+            100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); }
+        }
+
+        @keyframes title-float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-5px); }
+        }
+
+        /* NEW LOADING SCREEN (GAME LOBBY) */
+        .new-loading-screen {
+            background: url('https://github.com/KhenRex/Bg_color/raw/main/Picsart_25-03-15_14-55-40-794.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: none; /* Initially hidden */
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            flex-direction: column;
+        }
+
+        /* Game Logo */
+        .game-logo {
+            width: 100%;
+            max-width: 800px; /* Adjust the size as needed */
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInLogo 1s ease-in-out forwards; /* Faster fade-in */
+        }
+
+        .game-logo img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+        }
+
+        @keyframes fadeInLogo {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Play Button */
+        .play-button {
+            width: 300px; /* Adjusted size */
+            height: 300px; /* Adjusted size */
+            cursor: pointer;
+            position: relative;
+            opacity: 0;
+            animation: fadeInPlayButton 1s ease-in-out forwards; /* Faster fade-in */
+            transition: transform 0.3s ease;
+        }
+
+        .play-button:hover {
+            transform: scale(1.05);
+        }
+
+        .play-button:active {
+            transform: scale(0.95);
+        }
+
+        .play-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%; /* Circular shape */
+        }
+
+        @keyframes fadeInPlayButton {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* NOTE LOGO STYLES */
+        .note-logo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 100px; /* Larger size */
+            height: 100px; /* Larger size */
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0; /* Initially hidden */
+            animation: fadeInLogo 1s ease-in-out forwards; /* Faster fade-in */
+            display: none; /* Initially hidden */
+            transition: transform 0.3s ease;
+        }
+
+        .note-logo:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInLogo {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .note-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* MODAL STYLES */
+        .modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            width: 90%;
+            max-width: 500px;
+            background: linear-gradient(135deg, #4568dc, #3f51b5);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-header {
+            padding: 20px;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #7B68EE, #4169E1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .close-button:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .close-button span {
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .modal-body {
+            padding: 30px;
+            color: white;
+        }
+
+        .modal-description {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: left; /* Align text to the left */
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        .modal-button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .primary-button {
+            background-color: #ffcc00;
+            color: #333;
+            min-width: 120px;
+        }
+
+        .primary-button:hover {
+            background-color: #ffd633;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Shine effect for text */
+        .shine-text {
+            background: linear-gradient(90deg, #FFD700, #FFA500, #FFD700);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine-text 3s linear infinite;
+        }
+
+        @keyframes shine-text {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* GAME SYSTEM STYLES (HIDDEN BY DEFAULT) */
+        .game-system {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://github.com/KhenRex/Bg_color/raw/main/Picsart_25-03-15_14-55-40-794.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            overflow: hidden;
+            user-select: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Game Timer Styles */
+        #gameTimer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #gameTimer svg {
+            width: 300px;
+            height: auto;
+        }
+
+        #gameTimer text {
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+
+        #gameContainer {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* Space between images */
+            margin: 20px 0;
+        }
+
+        .images img {
+            width: 200px;
+            height: 200px;
+            border: 3px solid #7B68EE;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(123, 104, 238, 0.5);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .images img:hover {
+            box-shadow: 0 0 20px rgba(123, 104, 238, 0.8);
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        /* Next Question and Review Buttons */
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 30px;
+            border-radius: 14px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.7);
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: white;
+            box-shadow: 0px 0px 15px rgba(0, 114, 255, 0.9);
+            position: relative;
+        }
+
+        .next-btn::after {
+            content: '➜';
+            font-size: 24px;
+            margin-left: 12px;
+            display: inline-block;
+            animation: emojiBounce 1s infinite ease-in-out;
+        }
+
+        @keyframes emojiBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .review-btn {
+            background: linear-gradient(135deg, #ff512f, #dd2476);
+            color: white;
+            box-shadow: 0px 0px 15px rgba(255, 46, 0, 0.9);
+            position: relative;
+        }
+
+        .review-btn::after {
+            content: '⏳';
+            font-size: 24px;
+            margin-left: 12px;
+            display: inline-block;
+            animation: rotateEmoji 2s linear infinite;
+        }
+
+        @keyframes rotateEmoji {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hint Button Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        .hint-button {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            outline: none;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .hint-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .hint-button:active {
+            transform: translateY(1px);
+        }
+
+        .shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: skewX(-25deg);
+            filter: blur(5px);
+            animation: shine-effect 3s infinite;
+        }
+
+        @keyframes shine-effect {
+            0% { left: -100%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .hint-description {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 320px;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffffff, #f8f9ff);
+            color: #333;
+            border-radius: 20px;
+            font-size: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.18);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border-left: 6px solid #FF6B6B;
+        }
+
+        .hint-description.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .hint-description h3 {
+            margin-top: 0;
+            color: #FF6B6B;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(255, 107, 107, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            line-height: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0.9;
+            transform: scale(0);
+            animation: pop-in 0.5s forwards 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 6px 12px rgba(255, 107, 107, 0.5);
+            opacity: 1;
+        }
+
+        @keyframes pop-in {
+            0% { transform: scale(0) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(45deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .hint-description p {
+            margin-bottom: 12px;
+            line-height: 1.7;
+            font-size: 16px;
+            color: #444;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hint-description p:last-of-type {
+            margin-bottom: 0;
+            font-weight: 600;
+            color: #FF6B6B;
+        }
+
+        .hint-footer {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #888;
+            text-align: right;
+            font-style: italic;
+        }
+
+        .emoji {
+            font-size: 20px;
+        }
+
+        .emoji-big {
+            font-size: 24px;
+        }
+
+        .pulse {
+            animation: pulse-animation 1s;
+        }
+
+        @keyframes pulse-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 15px 30px rgba(255, 107, 107, 0.7); }
+            100% { transform: scale(1); }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+            100% { transform: translateX(-50%) translateY(0px); }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: white;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .sparkle-1 {
+            top: -20px;
+            left: 20%;
+            animation: sparkle-animation 3s infinite 0.2s;
+        }
+
+        .sparkle-2 {
+            top: -15px;
+            left: 50%;
+            animation: sparkle-animation 2.5s infinite 0.5s;
+        }
+
+        .sparkle-3 {
+            top: -20px;
+            right: 20%;
+            animation: sparkle-animation 3s infinite 1s;
+        }
+
+        @keyframes sparkle-animation {
+            0% { transform: scale(0); opacity: 0; }
+            20% { transform: scale(1.5); opacity: 1; }
+            40% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* Tiles Word Design Styles */
+        .tile-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .target-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            min-height: 90px;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(100, 100, 200, 0.2);
+            perspective: 1000px;
+        }
+
+        .target-container .tile {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .target-container .tile:hover {
+            transform: translateZ(30px);
+            box-shadow: 
+                0 0 30px rgba(255,255,255,0.2),
+                0 0 60px rgba(255,255,255,0.1),
+                0 0 90px rgba(255,255,255,0.1);
+        }
+
+        .tile {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, #4a4a9a 0%, #6a4a8a 100%);
+            border-radius: 12px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.3),
+                inset 0 0 10px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+
+        .tile:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: 1;
+            border-radius: 12px;
+        }
+
+        .tile:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tile:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 25px rgba(0, 0, 0, 0.4),
+                inset 0 0 15px rgba(255, 255, 255, 0.3);
+            transform: translateZ(20px) rotateX(10deg) rotateY(10deg);
+        }
+
+        .tile:hover:after {
+            opacity: 1;
+        }
+
+        .tile.active {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .tile.clicking {
+            transform: scale(0.95);
+            box-shadow: 0 0 30px rgba(150, 120, 255, 0.9);
+        }
+
+        .tile.empty {
+            background: rgba(60, 60, 100, 0.2);
+            box-shadow: 
+                inset 0 0 15px rgba(0, 0, 0, 0.3),
+                0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .tile.filled {
+            animation: placeTile 0.5s forwards;
+        }
+
+        .tile.incorrect {
+            animation: incorrectTile 0.5s forwards;
+        }
+
+        @keyframes incorrectTile {
+            0% { background: linear-gradient(135deg, #4a4a9a 0%, #6a4a8a 100%); }
+            50% { background: linear-gradient(135deg, #ff3b3b 0%, #ff6b6b 100%); }
+            100% { background: linear-gradient(135deg, #4a4a9a 0%, #6a4a8a 100%); }
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #4a4a9a 0%, #6a4a8a 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: 1;
+            border-radius: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        .btn.backspace {
+            background: linear-gradient(135deg, #8a4a6a 0%, #6a4a8a 100%);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn.backspace:hover {
+            background: linear-gradient(135deg, #9a5a7a 0%, #7a5a9a 100%);
+        }
+
+        .btn.backspace svg {
+            width: 20px;
+            height: 20px;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+        }
+
+        .btn.shuffle {
+            background: linear-gradient(135deg, #4a6a9a 0%, #4a4a8a 100%);
+        }
+
+        .btn.shuffle:hover {
+            background: linear-gradient(135deg, #5a7aaa 0%, #5a5a9a 100%);
+        }
+
+        @keyframes placeTile {
+            0% { 
+                transform: scale(1.2) translateY(-10px);
+                box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+            }
+            40% { 
+                transform: scale(1.1) translateY(-5px);
+            }
+            70% { 
+                transform: scale(0.95);
+            }
+            100% { 
+                transform: scale(1);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        @keyframes removeTile {
+            0% { 
+                transform: scale(1);
+            }
+            40% { 
+                transform: scale(0.95);
+            }
+            100% { 
+                transform: scale(1.1) translateY(-10px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); box-shadow: 0 0 30px rgba(100, 200, 255, 0.8); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .wiggle {
+            animation: wiggle 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glowing-border {
+            position: relative;
+        }
+
+        .glowing-border:before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #4080ff, #8060ff, #a040ff, #4080ff);
+            background-size: 400% 400%;
+            z-index: -1;
+            animation: glowingBorder 3s ease infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .target-container.active .glowing-border:before {
+            opacity: 1;
+        }
+
+        @keyframes glowingBorder {
+            0% { background-position: 200% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .tile.correct {
+            animation: correctTile 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes correctTile {
+            0% { 
+                transform: scale(1); 
+                background: linear-gradient(135deg, #4a4a9a 0%, #6a4a8a 100%);
+            }
+            50% { 
+                transform: scale(1.15); 
+                box-shadow: 0 0 40px rgba(100, 255, 150, 0.8);
+            }
+            100% { 
+                transform: scale(1);
+                background: linear-gradient(135deg, #4a9a4a 0%, #6a8a4a 100%);
+            }
+        }
+
+        .flying-letter {
+            position: absolute;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        @keyframes flyIn {
+            0% { transform: scale(0.5) translateY(100px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        @keyframes flyOut {
+            0% { transform: scale(1) translateY(0); opacity: 1; }
+            100% { transform: scale(0.5) translateY(-100px); opacity: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .tile {
+                width: 45px;
+                height: 45px;
+                font-size: 1.4rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+
+        /* Add these new styles after existing styles */
+        .tech-display {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 180px;
+            height: 180px;
+            display: none; /* Initially hidden */
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInPoints 0.5s ease-out forwards;
+            animation-delay: 2s; /* Delay until after white flash */
+        }
+
+        @keyframes fadeInPoints {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* White flash animation */
+        .white-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            animation: flashAndFade 2s ease-out forwards;
+        }
+
+        @keyframes flashAndFade {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Tech Points Display styles - Replace existing tech-display styles */
+        .tech-display {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 180px;
+            height: 180px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInPoints 0.5s ease-out forwards;
+            animation-delay: 2s;
+        }
+
+        .hex-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tech-number {
+            position: relative;
+            z-index: 10;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff00ff, #9900ff, #ff5500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1px #fff;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+            animation: text-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes hex-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        @keyframes text-glow {
+            0% { text-shadow: 0 0 10px #ff00ff; }
+            50% { text-shadow: 0 0 20px #ff5500; }
+            100% { text-shadow: 0 0 10px #9900ff; }
+        }
+
+        /* Replace white flash animation with aesthetic flash */
+        .flash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            display: none;
+        }
+
+        @keyframes flashScreenAnim {
+            0% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+        }
+
+        .flash-screen.active {
+            animation: flashScreenAnim 2s ease-out forwards;
+        }
+
+        /* Remove old white flash styles */
+        .white-flash {
+            display: none;
+        }
+
+        .power-ups-container {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .power-up {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .power-up:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .power-up-icon {
+            font-size: 24px;
+        }
+
+        .power-up-timer, .power-up-uses {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background: #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #4a00e0;
+        }
+
+        .floating-effect {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+            animation: floatUp 2s ease-out forwards;
+            pointer-events: none;
+        }
+
+        /* Transition Screen Styles */
+        .transition-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s;
+        }
+
+        /* Active State */
+        .transition-screen.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Difficulty Level Text */
+        .level-text {
+            font-size: 8vw;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px currentColor;
+            transform: scale(0.5);
+            opacity: 0;
+        }
+
+        /* Difficulty Specific Colors */
+        .easy { color: #4CAF50; }
+        .medium { color: #FFC107; }
+        .hard { color: #FF5722; }
+        .expert { color: #F44336; }
+
+        /* Subtitle */
+        .subtitle {
+            font-size: 2vw;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        /* Continue Button */
+        .continue-btn {
+            padding: 15px 40px;
+            font-size: 1.5vw;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transform: scale(0);
+            transition: all 0.5s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .continue-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .continue-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        /* Background Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Fireworks Container */
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px;
+        }
+
+        /* Animation Classes */
+        .animate-in {
+            animation: scaleIn 1s forwards, float 3s infinite ease-in-out;
+        }
+
+        .animate-subtitle {
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+
+        .animate-btn {
+            animation: scaleIn 0.5s 1s forwards;
+        }
+
+        /* Keyframes */
+        @keyframes scaleIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes particleMove {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)); opacity: 0; }
+        }
+
+        /* Difficulty Specific Backgrounds */
+        .easy-bg {
+            background: radial-gradient(circle at center, #1a2e1a 0%, #000 70%);
+        }
+
+        .medium-bg {
+            background: radial-gradient(circle at center, #2e2a1a 0%, #000 70%);
+        }
+
+        .hard-bg {
+            background: radial-gradient(circle at center, #2e1a1a 0%, #000 70%);
+        }
+
+        .expert-bg {
+            background: radial-gradient(circle at center, #2e1a2a 0%, #000 70%);
+        }
+
+        /* Glow Effects */
+        .glow {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, currentColor 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse 3s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.1; }
+            100% { transform: scale(1.2); opacity: 0.2; }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Celebration Text */
+        .celebration-text {
+            position: absolute;
+            font-size: 5vw;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px;
+            opacity: 0;
+            z-index: 1001;
+        }
+
+        /* Final Congratulations Screen */
+        .final-congrats {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            background: radial-gradient(circle, #4e54c8, #8f94fb);
+            color: white;
+            text-align: center;
+        }
+
+        .final-congrats h1 {
+            font-size: 5vw;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            transform: scale(0);
+            animation: scaleIn 1s 0.5s forwards;
+        }
+
+        .final-congrats p {
+            font-size: 2vw;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeIn 1s 1s forwards;
+        }
+
+        .final-congrats button {
+            padding: 15px 40px;
+            font-size: 1.5vw;
+            background: white;
+            color: #4e54c8;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transform: scale(0);
+            animation: scaleIn 0.5s 1.5s forwards;
+            transition: all 0.3s;
+        }
+
+        .final-congrats button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        /* DIAMOND SHINE STYLES */
+        .correct-tile {
+            animation: diamond-glow 1.8s;
+            background: linear-gradient(135deg, #2ecc71, #27ae60, #16a085);
+            box-shadow: 0 0 25px rgba(46, 204, 113, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .correct-tile::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, 
+                transparent 45%, 
+                rgba(255,255,255,0.8) 50%, 
+                transparent 55%);
+            transform: rotate(30deg);
+            animation: shine 2.5s infinite;
+        }
+
+        @keyframes diamond-glow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+
+        /* FLOATING STARS */
+        .star-particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>');
+            animation: float-away 1.5s forwards;
+        }
+
+        @keyframes float-away {
+            to { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+        }
+
+        /* LAVA BURST STYLES */
+        .wrong-tile {
+            animation: lava-shake 0.6s infinite;
+            background: linear-gradient(135deg, #e74c3c, #c0392b, #e67e22);
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.7);
+        }
+
+        @keyframes lava-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-4px); }
+        }
+
+        /* SMOKE PARTICLES */
+        .smoke-particle {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            filter: blur(3px);
+            animation: smoke-float 1.5s forwards;
+        }
+
+        @keyframes smoke-float {
+            to { transform: translate(var(--x), var(--y)) scale(3); opacity: 0; }
+        }
+
+        /* GALACTIC FIREWORKS */
+        .firework-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            animation: firework-explode 1.8s forwards;
+        }
+
+        .firework-trail {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            animation: firework-rise 0.8s forwards;
+        }
+
+        @keyframes firework-explode {
+            to { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+        }
+
+        @keyframes firework-rise {
+            to { transform: translate(var(--tx), var(--ty)) scale(0.5); opacity: 0; }
+        }
+
+        /* CRYSTAL SPARKLES */
+        .crystal-sparkle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            pointer-events: none;
+            z-index: 50;
+            animation: sparkle-fade 0.8s forwards;
+            filter: drop-shadow(0 0 2px white);
+        }
+
+        /* Crystal shape variations */
+        .sparkle-1 { border-width: 0 4px 8px 4px; border-color: transparent transparent #3498db transparent; }
+        .sparkle-2 { border-width: 8px 4px 0 4px; border-color: #3498db transparent transparent transparent; }
+        .sparkle-3 { border-width: 4px 0 4px 8px; border-color: transparent transparent transparent #3498db; }
+        .sparkle-4 { border-width: 4px 8px 4px 0; border-color: transparent #3498db transparent transparent; }
+
+        @keyframes sparkle-fade {
+            to { transform: translate(var(--x), var(--y)) rotate(180deg) scale(0); opacity: 0; }
+        }
+
+        /* Standardize image and question number layout */
+        .images {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .images img {
+            width: 150px;
+            height: 150px;
+            border: 3px solid #7B68EE;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .question-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7B68EE;
+            margin-bottom: 10px;
+        }
+
+        /* IMAGES GRID */
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 15px;
+            width: 100%;
+            max-width: 450px;
+            margin-bottom: 20px;
+        }
+
+        .image-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.5s ease;
+        }
+
+        .image-container:hover .game-image {
+            transform: scale(1.05);
+        }
+        
+        /* IMAGES GRID - Updated for centering and better styling */
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 200px);
+            grid-gap: 20px;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto 30px;
+            justify-content: center;
+        }
+
+        #images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto 20px;
+            justify-content: center;
+        }
+
+        .image-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            overflow: visible;
+        }
+
+        .svg-frame {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 230px;
+            height: 230px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .game-image {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            z-index: 2;
+            transition: transform 0.5s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Wave effect for tiles */
+        @keyframes waveEffect {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .tile.correct {
+            animation: waveEffect 0.5s ease-in-out infinite;
+        }
+
+        /* Firework Particle Animation */
+        @keyframes firework-explode {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .firework-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff0000, #ff9900);
+            animation: firework-explode 1s ease-out forwards;
+            pointer-events: none;
+        }
+
+        /* Confetti Animation */
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+            animation: confetti-fall 2s ease-out forwards;
+            pointer-events: none;
+        }
+
+        /* Screen Shake Animation */
+        @keyframes screen-shake {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-10px, 0); }
+            50% { transform: translate(10px, 0); }
+            75% { transform: translate(-5px, 0); }
+        }
+
+        .shake {
+            animation: screen-shake 0.5s ease-in-out;
+        }
+    </style>
+    <link rel="stylesheet" href="celebration.css">
+    <script src="celebration.js"></script>
+</head>
+<body>
+    <!-- Game Rules Screen -->
+    <div class="rules-screen">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 600">
+            <!-- Background for the window -->
+            <defs>
+                <!-- Gradient for background -->
+                <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#2A1B3D" />
+                    <stop offset="100%" stop-color="#44318D" />
+                </linearGradient>
+                <!-- Shining effect -->
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="5" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+                <!-- Border pattern -->
+                <pattern id="borderPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <circle cx="10" cy="10" r="3" fill="#DAA520" />
+                </pattern>
+            </defs>
+            
+            <!-- Main window frame -->
+            <rect x="10" y="10" width="480" height="580" rx="15" ry="15" fill="url(#bgGradient)" stroke="url(#borderPattern)" stroke-width="5" />
+            
+            <!-- Inner frame with glow -->
+            <rect x="20" y="20" width="460" height="560" rx="10" ry="10" fill="none" stroke="#9C27B0" stroke-width="2" filter="url(#glow)" />
+            
+            <!-- Title bar background -->
+            <rect x="25" y="25" width="450" height="60" rx="8" ry="8" fill="#1A1A2E" />
+            
+            <!-- Animated stars in title bar -->
+            <g filter="url(#glow)">
+                <circle cx="50" cy="55" r="3" fill="#FFD700">
+                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="70" cy="55" r="2" fill="#FFD700">
+                    <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="430" cy="55" r="3" fill="#FFD700">
+                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="450" cy="55" r="2" fill="#FFD700">
+                    <animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite" />
+                </circle>
+            </g>
+            
+            <!-- Game Rules Title -->
+            <text x="250" y="65" font-family="Arial" font-size="28" font-weight="bold" fill="#FFD700" text-anchor="middle" filter="url(#glow)">GAME RULES</text>
+            
+            <!-- Decorative corner ornaments -->
+            <!-- Top left -->
+            <path d="M25,25 L60,25 Q50,35 60,45 L25,45 Z" fill="#9921E8" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="4s" repeatCount="indefinite" />
+            </path>
+            <!-- Top right -->
+            <path d="M475,25 L440,25 Q450,35 440,45 L475,45 Z" fill="#9921E8" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="4s" repeatCount="indefinite" />
+            </path>
+            <!-- Bottom left -->
+            <path d="M25,575 L60,575 Q50,565 60,555 L25,555 Z" fill="#9921E8" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="4s" repeatCount="indefinite" />
+            </path>
+            <!-- Bottom right -->
+            <path d="M475,575 L440,575 Q450,565 440,555 L475,555 Z" fill="#9921E8" opacity="0.7">
+                <animate attributeName="opacity" values="0.5;0.9;0.5" dur="4s" repeatCount="indefinite" />
+            </path>
+            
+            <!-- Rules content area -->
+            <rect x="40" y="100" width="420" height="400" rx="5" ry="5" fill="#16213E" stroke="#7B68EE" stroke-width="2" />
+            
+            <!-- Placeholder for rules text -->
+            <foreignObject x="50" y="110" width="400" height="380">
+                <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: Arial; font-size: 14px; color: white; padding: 10px;">
+                    <ol style="padding-left: 20px; text-align: left;"> <!-- Align text to the left -->
+                        <li style="margin-bottom: 10px;"><span class="shine-text">Objective:</span> Guess the correct word based on four pictures. Each set of pictures represents a common theme or concept, and your task is to figure out the word that connects them.</li>
+                        <li style="margin-bottom: 10px;"><span class="shine-text">Gameplay:</span> Choose letters from a scrambled set to form the correct word. The letters are displayed below the pictures, and you need to tap or click them in the right order to spell the word.</li>
+                        <li style="margin-bottom: 10px;"><span class="shine-text">Timer:</span> Each question has a 60-second time limit. You must guess the word before the timer runs out to earn points.</li>
+                        <li style="margin-bottom: 10px;"><span class="shine-text">Points:</span> You can earn up to 3 points per question, depending on how quickly you guess the word:  
+                            <ul style="list-style-type: disc; padding-left: 20px;">
+                                <li>3 points for guessing within 20 seconds.</li>
+                                <li>2 points for guessing between 21-40 seconds.</li>
+                                <li>1 point for guessing between 41-60 seconds.</li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 10px;"><span class="shine-text">Level Up:</span> Reach 10 points to level up. Each new level introduces slightly more challenging words and pictures.</li>
+                        <li style="margin-bottom: 10px;"><span class="shine-text">Hints:</span> If you're stuck, you can use hints to reveal clues about the answer. Hints might show a correct letter, highlight a picture, or provide a related word.</li>
+                        <li style="margin-bottom: 10px;"><span class="shine-text">Backspace:</span> If you select the wrong letter, use the backspace button to remove it and try again.</li>
+                        <li style="margin-bottom: 10px;"><span class="shine-text">Skip:</span> If a question is too difficult, you can skip it, but the game will ask for confirmation before moving on. Skipped questions can be revisited later.</li>
+                        <li style="margin-bottom: 10px;"><span class="shine-text">Review:</span> At the end of the game, you can review any unanswered or skipped questions to learn from your mistakes.</li>
+                        <li style="margin-bottom: 10px;"><span class="shine-text">Game Over:</span> When the game ends, your final score is displayed, showing your total points, correct answers, and overall performance.</li>
+                    </ol>
+                </div>
+            </foreignObject>
+            
+            <!-- Confirm button -->
+            <g onclick="startGame()">
+                <rect x="175" y="520" width="150" height="40" rx="20" ry="20" fill="#4B0082">
+                    <animate attributeName="fill" values="#4B0082;#7B68EE;#4B0082" dur="3s" repeatCount="indefinite" />
+                </rect>
+                <rect x="180" y="525" width="140" height="30" rx="15" ry="15" fill="#6A0DAD" />
+                <text x="250" y="547" font-family="Arial" font-size="18" font-weight="bold" fill="white" text-anchor="middle">CONFIRM</text>
+                <!-- Button glow effect -->
+                <rect x="175" y="520" width="150" height="40" rx="20" ry="20" fill="none" stroke="#E6E6FA" stroke-width="1" opacity="0.6">
+                    <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2s" repeatCount="indefinite" />
+                </rect>
+            </g>
+            
+            <!-- Animated border shine effect -->
+            <rect x="10" y="10" width="480" height="580" rx="15" ry="15" fill="none" stroke="#DAA520" stroke-width="1" opacity="0">
+                <animate attributeName="stroke-dasharray" values="0,1500;1500,0" dur="10s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0;0.8;0" dur="10s" repeatCount="indefinite" />
+            </rect>
+            
+            <!-- Animated particles -->
+            <g>
+                <circle cx="30" cy="150" r="2" fill="#E6E6FA" opacity="0.6">
+                    <animate attributeName="cy" values="150;500;150" dur="15s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.2;0.8;0.2" dur="15s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="470" cy="300" r="2" fill="#E6E6FA" opacity="0.6">
+                    <animate attributeName="cy" values="300;100;300" dur="20s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.2;0.8;0.2" dur="20s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="250" cy="100" r="1" fill="#E6E6FA" opacity="0.6">
+                    <animate attributeName="cx" values="250;100;400;250" dur="30s" repeatCount="indefinite" />
+                    <animate attributeName="cy" values="100;500;300;100" dur="30s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.2;0.8;0.2" dur="10s" repeatCount="indefinite" />
+                </circle>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Game Start Screen -->
+    <div class="game-start-screen" id="gameStartScreen">
+        <div class="game-start-container">
+            <div class="sparkles" id="sparkles"></div>
+            <div class="pixel-corner top-left"></div>
+            <div class="pixel-corner top-right"></div>
+            <div class="pixel-corner bottom-left"></div>
+            <div class="pixel-corner bottom-right"></div>
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://github.com/KhenRex/LOGO-W-PIXEL-FRAME/raw/main/Picsart_25-03-16_08-36-42-439.png" alt="TECH PICS ONE WORD">
+                    <div class="shine-effect"></div>
+                    <div class="glow"></div>
+                </div>
+            </div>
+            <div class="title-container">
+                <h1 class="title">TECH PICS</h1>
+                <div class="subtitle">ONE WORD</div>
+            </div>
+            <div class="loading-bar-container">
+                <div class="loading-bar">
+                    <div class="progress"></div>
+                    <div class="pixel-blocks">
+                        <!-- Generate 20 pixel blocks -->
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                        <div class="pixel-block"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="loading-text">LOADING GAME...</div>
+        </div>
+    </div>
+
+    <!-- Game Lobby Screen -->
+    <div class="new-loading-screen" id="gameLobby">
+        <!-- Game Logo -->
+        <div class="game-logo">
+            <img src="https://github.com/KhenRex/TECH-PICS-ONE-WORD-LOGO/raw/main/Picsart_25-03-15_17-25-52-056.png" alt="Game Logo">
+        </div>
+        <!-- Play Button -->
+        <div class="play-button" onclick="startGameSystem()">
+            <img src="https://github.com/KhenRex/Play-Button/raw/main/Picsart_25-03-15_16-38-02-059.png" alt="Play Button">
+        </div>
+    </div>
+
+    <!-- NOTE LOGO AND MODAL -->
+    <div class="note-logo" onclick="openModal()">
+        <img src="https://github.com/KhenRex/NOTE-LOGO/raw/main/Picsart_25-03-15_09-43-09-823.png" alt="Note Logo">
+    </div>
+
+    <!-- Modal Container -->
+    <div id="modalContainer" class="modal-container">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">MEMBERS</h2>
+                <div class="close-button" id="closeModalBtn">
+                    <span>×</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description">
+                    Zy Vil C. Caranguian<br>
+                    Ryan Menard Isla<br>
+                    Khenrex Polanco<br>
+                    Christine Abion<br>
+                    Yuna Micaelle<br>
+                    Carl Joshua Dalman<br>
+                    Edward Scott Balagot<br>
+                    Joshua Ramirez<br>
+                    Princess Ballesteros<br>
+                    Kaira Juvy Reasonda Costales<br>
+                    Mark Henry Pomares<br>
+                    Mique John Albert<br>
+                    Jhennier Rioferio<br>
+                    Jellian Angeles Estabillo<br>
+                    Micaella Balais<br>
+                    Jenea Le Alvear Angud
+                </p>
+                <div class="modal-buttons">
+                    <button class="modal-button primary-button">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME SYSTEM -->
+    <div class="game-system" id="gameSystem">
+        <!-- Game Timer -->
+        <div id="gameTimer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+                <!-- Enhanced background gradient -->
+                <defs>
+                    <radialGradient id="bgGradient" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+                        <stop offset="0%" stop-color="#2b5876" />
+                        <stop offset="100%" stop-color="#4e4376" />
+                    </radialGradient>
+                    
+                    <!-- Enhanced glow filter -->
+                    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                        <feGaussianBlur stdDeviation="6" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    
+                    <!-- Enhanced timer animation -->
+                    <linearGradient id="progress" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#00c6ff">
+                            <animate attributeName="stop-color" values="#00c6ff; #9d50bb; #ff512f; #fc00ff; #00c6ff" dur="15s" repeatCount="indefinite" />
+                        </stop>
+                        <stop offset="100%" stop-color="#0072ff">
+                            <animate attributeName="stop-color" values="#0072ff; #fc00ff; #00c6ff; #9d50bb; #0072ff" dur="15s" repeatCount="indefinite" />
+                        </stop>
+                    </linearGradient>
+                    
+                    <!-- Particle effect -->
+                    <filter id="particle" x="-50%" y="-50%" width="200%">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" result="noise" />
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+                    </filter>
+                </defs>
+                
+                <!-- Enhanced background with animated stars -->
+                <rect width="400" height="200" rx="20" ry="20" fill="url(#bgGradient)" />
+                
+                <!-- Animated stars -->
+                <g id="stars">
+                    <circle cx="50" cy="30" r="1" fill="white" opacity="0.8">
+                        <animate attributeName="opacity" values="0.8;0.2;0.8" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="100" cy="50" r="1.5" fill="white" opacity="0.6">
+                        <animate attributeName="opacity" values="0.6;0.1;0.6" dur="4s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="150" cy="20" r="1" fill="white" opacity="0.7">
+                        <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2.5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="200" cy="40" r="1.2" fill="white" opacity="0.5">
+                        <animate attributeName="opacity" values="0.5;0.1;0.5" dur="3.5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="250" cy="25" r="1" fill="white" opacity="0.8">
+                        <animate attributeName="opacity" values="0.8;0.2;0.8" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="300" cy="55" r="1.3" fill="white" opacity="0.6">
+                        <animate attributeName="opacity" values="0.6;0.1;0.6" dur="4s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="350" cy="30" r="1" fill="white" opacity="0.7">
+                        <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2.5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="75" cy="170" r="1.2" fill="white" opacity="0.5">
+                        <animate attributeName="opacity" values="0.5;0.1;0.5" dur="3.5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="125" cy="150" r="1" fill="white" opacity="0.8">
+                        <animate attributeName="opacity" values="0.8;0.2;0.8" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="175" cy="160" r="1.5" fill="white" opacity="0.6">
+                        <animate attributeName="opacity" values="0.6;0.1;0.6" dur="4s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="225" cy="155" r="1" fill="white" opacity="0.7">
+                        <animate attributeName="opacity" values="0.7;0.3;0.7" dur="2.5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="275" cy="175" r="1.2" fill="white" opacity="0.5">
+                        <animate attributeName="opacity" values="0.5;0.1;0.5" dur="3.5s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="325" cy="165" r="1" fill="white" opacity="0.8">
+                        <animate attributeName="opacity" values="0.8;0.2;0.8" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="375" cy="150" r="1.3" fill="white" opacity="0.6">
+                        <animate attributeName="opacity" values="0.6;0.1;0.6" dur="4s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+                
+                <!-- Decorative orbs with enhanced animation -->
+                <circle cx="40" cy="40" r="12" fill="url(#progress)" opacity="0.8" filter="url(#glow)">
+                    <animate attributeName="r" values="12;18;12" dur="4s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.8;0.4;0.8" dur="4s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="360" cy="40" r="12" fill="url(#progress)" opacity="0.8" filter="url(#glow)">
+                    <animate attributeName="r" values="12;18;12" dur="3s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="40" cy="160" r="12" fill="url(#progress)" opacity="0.8" filter="url(#glow)">
+                    <animate attributeName="r" values="12;18;12" dur="5s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.8;0.4;0.8" dur="5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="360" cy="160" r="12" fill="url(#progress)" opacity="0.8" filter="url(#glow)">
+                    <animate attributeName="r" values="12;18;12" dur="4.5s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.8;0.4;0.8" dur="4.5s" repeatCount="indefinite" />
+                </circle>
+                
+                <!-- Enhanced timer container with glass effect -->
+                <rect x="70" y="55" width="260" height="90" rx="15" ry="15" fill="rgba(255, 255, 255, 0.1)" stroke="rgba(255, 255, 255, 0.3)" stroke-width="2" />
+                
+                <!-- Enhanced progress bar -->
+                <rect x="90" y="135" width="220" height="10" rx="5" ry="5" fill="rgba(0, 0, 0, 0.3)" />
+                <rect x="90" y="135" width="220" height="10" rx="5" ry="5" fill="url(#progress)" filter="url(#glow)">
+                    <animate attributeName="width" values="220;0" dur="60s" repeatCount="1" />
+                </rect>
+                
+                <!-- Enhanced timer text -->
+                <text x="200" y="110" font-family="Arial, sans-serif" font-size="44" font-weight="bold" fill="#ffffff" filter="url(#glow)">
+                    <tspan id="minutes">01</tspan>:<tspan id="seconds">00</tspan>
+                    <animate id="countdown" attributeName="visibility" dur="60s" repeatCount="1" begin="0s" />
+                </text>
+                
+                <!-- Multiple animated pulse rings -->
+                <circle cx="200" cy="100" r="70" fill="none" stroke="url(#progress)" stroke-width="2" opacity="0.3">
+                    <animate attributeName="r" values="70;100;70" dur="6s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.3;0;0.3" dur="6s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="200" cy="100" r="60" fill="none" stroke="url(#progress)" stroke-width="3" opacity="0.4">
+                    <animate attributeName="r" values="60;90;60" dur="5s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.4;0;0.4" dur="5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="200" cy="100" r="50" fill="none" stroke="url(#progress)" stroke-width="2" opacity="0.5">
+                    <animate attributeName="r" values="50;80;50" dur="4s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.5;0;0.5" dur="4s" repeatCount="indefinite" />
+                </circle>
+                
+                <!-- Enhanced game timer label -->
+                <text x="200" y="38" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" filter="url(#glow)">
+                    GAME TIMER
+                    <animate attributeName="font-size" values="20;22;20" dur="2s" repeatCount="indefinite" />
+                </text>
+            </svg>
+        </div>
+
+        <!-- Game Container -->
+        <div id="gameContainer">
+            <!-- Images Section -->
+            <div class="images-grid" id="images">
+                <!-- Updated to display 4 smaller images in a horizontal grid -->
+                <div class="image-container">
+                    <img src="https://example.com/image1.jpg" alt="Image 1" class="game-image">
+                </div>
+                <div class="image-container">
+                    <img src="https://example.com/image2.jpg" alt="Image 2" class="game-image">
+                </div>
+                <div class="image-container">
+                    <img src="https://example.com/image3.jpg" alt="Image 3" class="game-image">
+                </div>
+                <div class="image-container">
+                    <img src="https://example.com/image4.jpg" alt="Image 4" class="game-image">
+                </div>
+            </div>
+
+            <!-- Tiles Word Design Section -->
+            <div class="game-board">
+                <div class="target-container glowing-border" id="target-area"></div>
+                <div class="tile-container" id="tile-area"></div>
+                <div class="controls">
+                    <button class="btn backspace" id="backspace">Backspace</button>
+                    <button class="btn shuffle" id="shuffle">Shuffle</button>
+                </div>
+            </div>
+
+            <!-- Next Question and Review Buttons -->
+            <div class="buttons-container">
+                <button class="btn hint-button" id="hintBtn">
+                    <span class="emoji">&#x1F4A1;</span> HINT
+                </button>
+                <button class="btn next-btn" onclick="skipQuestion()">Skip Question</button>
+            </div>
+
+            <!-- Hint Description Window -->
+            <div class="hint-description" id="hintDesc">
+                <h3><span class="emoji-big">&#x1F4A1;</span> CLUE</h3>
+                <button class="close-btn" id="closeBtn">×</button>
+                <p id="hintText">Main board inside a computer.</p>
+                <div class="hint-footer">Tap button again to close</div>
+            </div>
+
+            <div id="result"></div>
+        </div>
+
+        <!-- Power-Ups Section -->
+        <div class="power-ups-container">
+            <div class="power-up" onclick="activatePowerUp('doublePoints')">
+                <span class="power-up-icon">⚡</span>
+                <span class="power-up-timer"></span>
+            </div>
+            <div class="power-up" onclick="activatePowerUp('letterReveal')">
+                <span class="power-up-icon">💡</span>
+                <span class="power-up-uses">3</span>
+            </div>
+            <div class="power-up" onclick="activatePowerUp('timeFreeze')">
+                <span class="power-up-icon">❄️</span>
+                <span class="power-up-timer"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transition Screens -->
+    <div class="transition-screen easy-bg" id="easy-transition">
+        <div class="glow easy"></div>
+        <div class="particles" id="easy-particles"></div>
+        <h1 class="level-text easy">Easy Mode</h1>
+        <p class="subtitle">Basic Components Mastered!</p>
+        <button class="continue-btn easy" onclick="continueToMedium()">Continue to Medium</button>
+    </div>
+
+    <div class="transition-screen medium-bg" id="medium-transition">
+        <div class="glow medium"></div>
+        <div class="particles" id="medium-particles"></div>
+        <h1 class="level-text medium">Medium Mode</h1>
+        <p class="subtitle">Internal Hardware Challenge!</p>
+        <button class="continue-btn medium" onclick="continueToHard()">Continue to Hard</button>
+    </div>
+
+    <div class="transition-screen hard-bg" id="hard-transition">
+        <div class="glow hard"></div>
+        <div class="particles" id="hard-particles"></div>
+        <h1 class="level-text hard">Hard Mode</h1>
+        <p class="subtitle">Networking & Peripherals!</p>
+        <button class="continue-btn hard" onclick="continueToExpert()">Continue to Expert</button>
+    </div>
+
+    <div class="transition-screen expert-bg" id="expert-transition">
+        <div class="glow expert"></div>
+        <div class="particles" id="expert-particles"></div>
+        <h1 class="level-text expert">Expert Mode</h1>
+        <p class="subtitle">Tools & Advanced Components!</p>
+        <button class="continue-btn expert" onclick="finishGame()">Finish Challenge</button>
+    </div>
+
+    <!-- Final Congratulations Screen -->
+    <div class="final-congrats" id="finalCongrats">
+        <h1>CONGRATULATIONS!</h1>
+        <p>You've completed all 20 challenges!</p>
+        <button onclick="returnToLobby()">Return to Lobby</button>
+    </div>
+
+    <!-- Fireworks Display -->
+    <div class="fireworks-container" id="fireworks"></div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="https://github.com/KhenRex/Starting-Game_BG_Music/raw/main/The%20Game%20Show%20Theme%20Music%20(1).mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Game System Music -->
+    <audio id="gameSystemMusic" loop>
+        <source src="https://github.com/KhenRex/Starting-Game_BG_Music/raw/main/The%20Game%20Show%20Theme%20Music%20(1).mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Button Click Sound -->
+    <audio id="buttonClickSound">
+        <source src="button-click.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="tech-display">
+        <!-- Outer Glow Hexagon -->
+        <div class="hex-layer" style="animation: hex-pulse 3s ease-in-out infinite">
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <defs>
+                    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FF00FF"/>
+                        <stop offset="50%" stop-color="#9900FF"/>
+                        <stop offset="100%" stop-color="#FF5500"/>
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="5" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                    </filter>
+                </defs>
+                <polygon points="50,5 95,25 95,75 50,95 5,75 5,25"
+                         fill="url(#hexGrad)" 
+                         filter="url(#glow)" 
+                         opacity="0.7"/>
+            </svg>
+        </div>
+        
+        <!-- Middle Hexagon Layer -->
+        <div class="hex-layer">
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <polygon points="50,15 85,32 85,68 50,85 15,68 15,32"
+                         fill="url(#hexGrad)"
+                         stroke="#FF00FF"
+                         stroke-width="1"
+                         stroke-opacity="0.6"/>
+            </svg>
+        </div>
+        
+        <!-- Black Center Hexagon -->
+        <div class="hex-layer">
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <polygon points="50,25 75,37 75,63 50,75 25,63 25,37"
+                         fill="rgba(10, 5, 20, 0.9)"
+                         stroke="#FF00FF"
+                         stroke-width="1"
+                         stroke-opacity="0.6"/>
+            </svg>
+        </div>
+        
+        <!-- Number Display -->
+        <div class="tech-number">0</div>
+    </div>
+
+    <div class="white-flash"></div>
+    <div class="flash-screen"></div>
+
+    <script>
+        // Game questions organized by difficulty
+        const questions = [
+            // Easy Mode (Basic Components)
+            {
+                answer: "MOTHERBOARD",
+                images: [
+                    "https://pcoutlet.com/wp-content/uploads/gigabyte-b760-ds3h-ac-ddr4.jpg",
+                    "https://m.media-amazon.com/images/I/71BW5+VGikL._AC_SL1500_.jpg",
+                    "https://www.fs-pcba.com/wp-content/uploads/2024/09/Motherboard-Area.png",
+                    "https://easypc.com.ph/cdn/shop/files/Gigabyte_Z790_UD_AX_LGA1700_Socket_DDR5_Motherboard-a_2048x.png?v=1708481947"
+                ],
+                hint: "Main board inside a computer.",
+                difficulty: "easy"
+            },
+            {
+                answer: "RAM",
+                images: [
+                    "https://store.hp.com/app/assets/images/uploads/prod/how-to-install-ram-one-a-motherboard-hero156711117076644.jpg",
+                    "https://www.avg.com/hs-fs/hubfs/Blog_Content/Avg/Signal/AVG%20Signal%20Images/How%20to%20Upgrade%20and%20Install%20RAM%20on%20PC/How_to_upgrade_RAM_memory_in_your_PC-Hero.jpg?width=1200&name=How_to_upgrade_RAM_memory_in_your_PC-Hero.jpg",
+                    "https://i.pcmag.com/imagery/encyclopedia-terms/rgb-ram-_rgbram.fit_lim.size_1050x.jpg",
+                    "https://www.cyberpowerpc.com/blog/w/wp-content/uploads/2021/08/How-to-Upgrade-RAM-in-Your-Gaming-PC.jpg"
+                ],
+                hint: "Makes computer fast but forgets when powered off.",
+                difficulty: "easy"
+            },
+            {
+                answer: "HDD",
+                images: [
+                    "https://i.ebayimg.com/00/s/MTAxOVgxNjAw/z/k4wAAOSwirFbBdeg/$_57.JPG?set_id=8800005007",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvyjaCpjqF87o3BvxNROh1PBNMXOIQqXfgwA&s",
+                    "https://www.fiercepc.co.uk/wp-content/uploads/best-internal-hard-drive.jpg",
+                    "https://i.ebayimg.com/images/g/3YIAAOSwyuFeqvLU/s-l400.jpg"
+                ],
+                hint: "Stores files for a long time with spinning disks.",
+                difficulty: "easy"
+            },
+            {
+                answer: "KEYBOARD",
+                images: [
+                    "https://m.media-amazon.com/images/I/710lpZBrbaS._AC_SL1500_.jpg",
+                    "https://media.wired.com/photos/6621af2c255c13bb362f5337/master/w_960,c_pad,dpr_2,f_auto,h_399,q_auto,w_710/c_pad,h_399,w_710/logitech-pro-x-tkl-keyboard-Reviewer-Photo-SOURCE-Eric-Ravenscraft.jpg",
+                    "https://i.ebayimg.com/images/g/QikAAOSwWpViBeaE/s-l1200.jpg",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi9TOUFQoop05Vm7n1nbi-zNsRGhV8gWzEKQ&s"
+                ],
+                hint: "Used to type letters and numbers.",
+                difficulty: "easy"
+            },
+            {
+                answer: "MOUSE",
+                images: [
+                    "https://www.lifewire.com/thmb/_GOO_BLQmZ9z8skP1R1_ZMBJ5vY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/printer-649004582-31623906dc38475bba79c63b0d18d761.jpg",
+                    "https://us.v-cdn.net/6036147/uploads/67SAKXLFNL4I/l-10-8-1-1200x675.jpg",
+                    "https://m.media-amazon.com/images/I/61YQeAUIboL._AC_SL1500_.jpg",
+                    "https://i.ebayimg.com/images/g/XtYAAOSwYq9kWGPr/s-l1200.jpg"
+                ],
+                hint: "Moves the cursor on screen.",
+                difficulty: "easy"
+            },
+            
+            // Medium Mode (Internal Hardware)
+            {
+                answer: "CMOS",
+                images: ["https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2022/05/cmos-battery-backup.jpg", "https://lennox-it.uk/wp-content/uploads/2015/05/lithium_bios_battery.jpg", "https://d2kbvjszk9d5ln.cloudfront.net/yshop/upload/other/cmos-battery-20241029094830765.webp", "https://kmpic.asus.com/images/2013/12/26/4f570b20-993b-467b-a51f-83ff5d071483.png"],
+                hint: "Keeps time and settings when computer is off.",
+                difficulty: "medium"
+            },
+            {
+                answer: "POWERSUPPLY",
+                images: [
+                    "https://m.media-amazon.com/images/I/71SRa7ZLw4L._AC_SL1500_.jpg",
+                    "https://cdn.thewirecutter.com/wp-content/media/2024/07/wifirouters-2048px-3572.jpg",
+                    "https://m.media-amazon.com/images/I/717hw9FyNIL._AC_SL1351_.jpg",
+                    "https://res.cloudinary.com/rsc/image/upload/b_rgb:FFFFFF,c_pad,dpr_2.625,f_auto,h_214,q_auto,w_380/c_pad,h_214,w_380/F1366055-02?pgw=1"
+                ],
+                hint: "Gives power to all computer components.",
+                difficulty: "medium"
+            },
+            {
+                answer: "FDD",
+                images: [
+                    "https://i.ebayimg.com/images/g/3YIAAOSwulViBlYO/s-l1200.jpg",
+                    "https://images-na.ssl-images-amazon.com/images/I/317kYHBm9GL._UL500_.jpg",
+                    "https://m.media-amazon.com/images/I/71qBRaDkd6L._AC_UF1000,1000_QL80_.jpg",
+                    "https://images-na.ssl-images-amazon.com/images/I/519S7E2UuTL._UL500_.jpg",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkI42YyjC3UK-NqQf28o9QPEyvNfBSwT0g&s"
+                ],
+                hint: "Reads old floppy disks (obsolete).",
+                difficulty: "medium"
+            },
+            {
+                answer: "PRINTER",
+                images: [
+                    "https://www.lifewire.com/thmb/_GOO_BLQmZ9z8skP1R1_ZMBJ5vY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/printer-649004582-31623906dc38475bba79c63b0d18d761.jpg",
+                    "https://mediaserver.goepson.com/app/assets/images/uploads/prod/how-to-install-ram-one-a-motherboard-hero156711117076644.jpg",
+                    "https://mediaserver.goepson.com/ImConvServlet/imconv/32ca9f80247256b4a08708abb40e0d327dd9bc84/1200Wx1200H?use=banner&hybrisId=B2C&assetDescr=L18050-%284%29",
+                    "https://ph.canon/media/image/2020/08/20/1d9293898956405399672948583c3085_ProH_SS1-w-paper_EN_edited_small-570x400.png"
+                ],
+                hint: "Outputs documents on paper.",
+                difficulty: "medium"
+            },
+            {
+                answer: "FLASHDRIVE",
+                images: [
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPuTGL-8a3zdQ3SQ34RODh7jB7PkHZcp3FFQ&s",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkI42YyjC3UK-NqQf28o9QPEyvNfBSwT0g&s",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFPZG0dFiXys0TtQtwENoZJZBLjmDPXo3ejg&s",
+                    "https://ph-test-11.slatic.net/p/f60232c7e44d59fd743d875a034aec8a.jpg"
+                ],
+                hint: "Small device for storing files.",
+                difficulty: "medium"
+            },
+            
+            // Hard Mode (Networking/Peripherals)
+            {
+                answer: "ROUTER",
+                images: [
+                    "https://cdn.thewirecutter.com/wp-content/media/2024/07/wifirouters-2048px-3572.jpg",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjk-vjdNQAMouzwVkryEc-GL0otJNwFpWXuw&s",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1g_qeoRpO3VQje3eESl5e0RK5pvFA6jWE3g&s",
+                    "https://static.mercusys.com/product-image/1_normal20221108011748.jpg"
+                ],
+                hint: "Shares internet connection with devices.",
+                difficulty: "hard"
+            },
+            {
+                answer: "SWITCH",
+                images: [
+                    "https://miro.medium.com/v2/resize:fit:553/0*e42FAcMcV_nrJpZj.png",
+                    "https://3.imimg.com/data3/KF/EF/MY-4043906/computer-network-switch-250x250.jpg",
+                    "https://www.eeweb.com/wp-content/uploads/articles-articles-different-types-of-switches-network-switches-1-1335629009.jpg",
+                    "https://pcx.com.ph/cdn/shop/files/NET-TP-LINK-8PRT-SWTCH-1.jpg?v=1699317138"
+                ],
+                hint: "Connects computers in a network.",
+                difficulty: "hard"
+            },
+            {
+                answer: "RJ45",
+                images: [
+                    "https://www.wellpcb.com/wp-content/uploads/Ethernet-wires-being-inserted-into-an-RJ45-connector-1200x800.jpg",
+                    "https://www.techtonions.com/wp-content/uploads/2023/07/networking-concept-still-life-composition_23-2149035685.webp",
+                    "https://www.binder-usa.com/prod_media/produktfoto_seo/VL_RJ45-77-9753_RJ45_77-9753-14708_green.jpg",
+                    "https://patchbox.com/wp-content/uploads/2023/01/RJ45-Connectors-Single-Images.jpg"
+                ],
+                hint: "Plug for network cables.",
+                difficulty: "hard"
+            },
+            {
+                answer: "HDMI",
+                images: [
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/HDMI_connector-male_2_sharp_PNr%C2%B00059.jpg/640px-HDMI_connector-male_2_sharp_PNr%C2%B00059.jpg",
+                    "https://easypc.com.ph/cdn/shop/products/Ad-link_HDMI_1.5_Meter_Cable_Redmesh-b_2048x.jpg?v=1699338661",
+                    "https://d1rlzxa98cyc61.cloudfront.net/catalog/product/1/8/1866793-2023_2.jpg?auto=webp&format=pjpg&width=640",
+                    "https://res.cloudinary.com/rsc/image/upload/b_rgb:FFFFFF,c_pad,dpr_2.625,f_auto,h_214,q_auto,w_380/c_pad,h_214,w_380/Y2368316-01?pgw=1"
+                ],
+                hint: "Sends video and audio signals.",
+                difficulty: "hard"
+            },
+            {
+                answer: "PATCHPANEL",
+                images: [
+                    "https://www.lightoptics.co.uk/cdn/shop/articles/patch_panel_1024x1024.jpg?v=1650447440",
+                    "https://images-cdn.ubuy.co.in/65fc3b3a8588e755ed777d4e-24-port-rj45-patch-panel-cat6-stp-feed.jpg",
+                    "https://res.cloudinary.com/rsc/image/upload/b_rgb:FFFFFF,c_pad,dpr_2.625,f_auto,h_214,q_auto,w_380/c_pad,h_214,w_380/F0166743-01?pgw=1",
+                    "https://ph.element14.com/productimages/standard/en_GB/2886378-40.jpg"
+                ],
+                hint: "Organizes network cables in racks.",
+                difficulty: "hard"
+            },
+            
+            // Expert Mode (Tools/Advanced Components)
+            {
+                answer: "NORTHBRIDGE",
+                images: [
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/I815EP.png/220px-I815EP.png",
+                    "https://www.computerhope.com/jargon/n/northbridge.png",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdY1GaPszdU0olwdIBwfwtDnir_p4AQXm74g_ygwdEQYZOOTyjKdBeYo08645xuLr-4kc&usqp=CAU",
+                    "https://c8.alamy.com/comp/KH8HK2/radiator-on-chip-of-northbridge-of-computer-motherboard-close-macro-KH8HK2.jpg"
+                ],
+                hint: "Connects CPU to fast components.",
+                difficulty: "expert"
+            },
+            {
+                answer: "SOUTHBRIDGE",
+                images: [
+                    "https://images.anandtech.com/reviews/video/ATI/crossfire/launch/uli.jpg",
+                    "https://thumbs.dreamstime.com/b/timisoara-romania-april-close-up-via-vt-c-b-microprocessor-south-bridge-controller-close-up-microprocessor-244141588.jpg",
+                    "https://images.anandtech.com/reviews/video/ATI/crossfire/launch/uli.jpg",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjlpPOhmIURogK4W8MUZmvTOtz2m7okkCN85MwMwvNYL-TiyRXB6GbnsBxDSS6q7g9qrU&usqp=CAU"
+                ],
+                hint: "Connects CPU to slow components.",
+                difficulty: "expert"
+            },
+            {
+                answer: "CRIMPINGTOOL",
+                images: [
+                    "https://ph-test-11.slatic.net/p/f60232c7e44d59fd743d875a034aec8a.jpg",
+                    "https://ph.element14.com/productimages/large/en_GB/1346963-40.jpg",
+                    "https://media.rs-online.com/image/upload/bo_1.5px_solid_white,b_auto,c_pad,dpr_2,f_auto,h_399,q_auto,w_710/c_pad,h_399,w_710/C4726762-01?pgw=1",
+                    "https://www.flukenetworks.com/sites/default/files/carouselimgs/fn-modularcrimper_01b_s_0.jpg"
+                ],
+                hint: "Attaches connectors to cables.",
+                difficulty: "expert"
+            },
+            {
+                answer: "LANTESTER",
+                images: [
+                    "https://dfestore.com/wp-content/uploads/2022/04/888-1.png",
+                    "https://dynaquestpc.com/cdn/shop/products/network-cable-tester-for-cat5-cat5e-cat6-rj45-rj11-lan-xs-468at-3709-9943026-bc51f2eb9a2e4df4a073176f90671bc3-product.jpg?v=1571552362",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyKopV38Y4YtLVk7ycX2pgVOHATc0wULDTJA&s",
+                    "https://i.ebayimg.com/images/g/V4kAAOSweDBh0ped/s-l1200.jpg"
+                ],
+                hint: "Checks network cable connections.",
+                difficulty: "expert"
+            },
+            {
+                answer: "ANTISTATICWRISTSTRAP",
+                images: [
+                    "https://ph.element14.com/productimages/large/en_GB/2396044-40.jpg",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEtdQgTpCSROxAH91GqBK6JDLTb7jH-tI1Tw&s",
+                    "https://m.media-amazon.com/images/I/51TcCqPP0QL._SL1100_.jpg",
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFBCfbSACdjIHADYiv4QC079ibHG2owl1IJA&s"
+                ],
+                hint: "Protects components from static electricity.",
+                difficulty: "expert"
+            }
+        ];
+
+        const powerUps = {
+            doublePoints: {
+                active: false,
+                duration: 30,
+                icon: "⚡"
+            },
+            letterReveal: {
+                uses: 3,
+                icon: "💡"
+            },
+            timeFreeze: {
+                active: false,
+                duration: 15,
+                icon: "❄️"
+            }
+        };
+
+        const achievements = {
+            speedSolver: {
+                name: "Speed Demon",
+                description: "Complete 3 words under 20 seconds",
+                progress: 0,
+                target: 3,
+                reward: "Double Points Power-up"
+            },
+            perfectStreak: {
+                name: "Perfect Streak",
+                description: "Get 5 words correct in a row",
+                progress: 0,
+                target: 5,
+                reward: "Letter Reveal Power-up"
+            }
+        };
+
+        let currentQuestion = 0;
+        let timeLeft = 60;
+        let timerInterval;
+        let currentDifficulty = "easy";
+        let points = 0;
+
+        // Game System Music
+        const gameSystemMusic = document.getElementById("gameSystemMusic");
+        gameSystemMusic.volume = 0.5; // Set volume to 50%
+
+        // Button Click Sound
+        const buttonClickSound = document.getElementById("buttonClickSound");
+
+        // Hint Button Functionality
+        const hintBtn = document.getElementById('hintBtn');
+        const hintDesc = document.getElementById('hintDesc');
+        const hintText = document.getElementById('hintText');
+        let isActive = false;
+
+        // Function to update hint text based on current question
+        function updateHint() {
+            hintText.textContent = questions[currentQuestion].hint;
+        }
+
+        hintBtn.addEventListener('click', () => {
+            isActive = !isActive;
+            if (isActive) {
+                hintDesc.classList.add('active');
+            } else {
+                hintDesc.classList.remove('active');
+            }
+            updateHint();
+        });
+
+        // Add close button functionality
+        document.getElementById('closeBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            isActive = false;
+            hintDesc.classList.remove('active');
+        });
+
+        // Call updateHint() when a question is loaded
+        updateHint();
+
+        function loadQuestion() {
+            // Clear previous tiles and reset game elements
+            document.getElementById('images').innerHTML = '';
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('target-area').innerHTML = '';
+            document.getElementById('tile-area').innerHTML = '';
+
+            const question = questions[currentQuestion];
+            
+            // Get up to 4 images from the current question
+            const imagesToShow = question.images.slice(0, 4);
+            
+            // If there are fewer than 4 images, add placeholder images
+            while (imagesToShow.length < 4) {
+                imagesToShow.push("https://via.placeholder.com/200x200?text=Image");
+            }
+            
+            // Create image containers with proper styling for each image
+            imagesToShow.forEach((src, index) => {
+                const imageContainer = document.createElement('div');
+                imageContainer.className = 'image-container';
+                
+                const img = document.createElement('img');
+                img.className = 'game-image';
+                img.src = src;
+                img.alt = 'Game Image';
+                img.width = 200;
+                img.height = 200;
+                img.style.borderRadius = '15px';
+                
+                imageContainer.appendChild(img);
+                document.getElementById('images').appendChild(imageContainer);
+                
+                // Create SVG frame for the image
+                createSVGFrame(imageContainer, index);
+            });
+
+            // Create empty slots in target area
+            for (let i = 0; i < question.answer.length; i++) {
+                const emptySlot = document.createElement('div');
+                emptySlot.classList.add('tile', 'empty');
+                emptySlot.dataset.index = i;
+                document.getElementById('target-area').appendChild(emptySlot);
+            }
+
+            // Create and shuffle tiles
+            createTiles();
+
+            // Reset and start the timer
+            resetTimer();
+            startTimer();
+        }
+
+        function createTiles() {
+            const question = questions[currentQuestion];
+            const letters = question.answer.split('');
+            shuffleArray(letters);
+
+            letters.forEach((letter, index) => {
+                const tile = document.createElement('div');
+                tile.classList.add('tile');
+                tile.textContent = letter;
+                tile.dataset.letter = letter;
+                tile.addEventListener('click', () => handleTileClick(tile));
+
+                // Add fancy entrance animation
+                tile.style.opacity = '0';
+                tile.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    tile.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    tile.style.opacity = '1';
+                    tile.style.transform = 'translateY(0)';
+                }, index * 100);
+
+                document.getElementById('tile-area').appendChild(tile);
+            });
+        }
+
+        // Function to create crystal sparkles
+        function createCrystalSparkles(tileElement) {
+            const rect = tileElement.getBoundingClientRect();
+            
+            // Create 6 crystal sparkles
+            for (let i = 0; i < 6; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = `crystal-sparkle sparkle-${Math.floor(Math.random() * 4) + 1}`;
+                sparkle.style.left = `${rect.left + rect.width / 2}px`;
+                sparkle.style.top = `${rect.top + rect.height / 2}px`;
+                
+                sparkle.style.setProperty('--x', `${(Math.random() - 0.5) * 30}px`);
+                sparkle.style.setProperty('--y', `${(Math.random() - 0.5) * 30}px`);
+                
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 800);
+            }
+        }
+
+        function handleTileClick(tile) {
+            const letter = tile.dataset.letter;
+
+            // Find the first empty slot
+            const emptySlots = Array.from(document.getElementById('target-area').children).filter(slot => !slot.dataset.filled);
+
+            if (emptySlots.length > 0) {
+                const slot = emptySlots[0];
+
+                // Set the letter in the empty slot
+                slot.textContent = letter;
+                slot.dataset.filled = 'true';
+                slot.dataset.letter = letter;
+                slot.classList.remove('empty');
+                slot.classList.add('filled');
+
+                // Create crystal sparkles for the slot
+                createCrystalSparkles(slot);
+
+                // Disable the tile temporarily instead of removing it
+                tile.classList.add('disabled');
+                tile.style.opacity = '0.5';
+                tile.style.pointerEvents = 'none';
+
+                checkWordComplete(); // Check if the word is complete after placing the tile
+            }
+        }
+
+        function checkWordComplete() {
+            const filledSlots = Array.from(document.getElementById('target-area').children).filter(slot => slot.dataset.filled === 'true');
+            const currentAnswer = filledSlots.map(slot => slot.dataset.letter).join('');
+
+            if (filledSlots.length === questions[currentQuestion].answer.length) {
+                if (currentAnswer === questions[currentQuestion].answer) {
+                    // Correct answer
+                    filledSlots.forEach(slot => {
+                        slot.classList.add('correct'); // Add wave effect and color
+                        slot.style.background = 'linear-gradient(135deg, #4CAF50, #8BC34A)';
+                    });
+                    points += 3; // Add points
+                    updatePointsDisplay();
+                    setTimeout(nextQuestion, 3000); // Delay transition to the next question by 3 seconds
+                } else {
+                    // Incorrect answer
+                    filledSlots.forEach(slot => slot.classList.add('incorrect')); // Add incorrect animation
+                    setTimeout(() => {
+                        filledSlots.forEach(slot => {
+                            slot.textContent = '';
+                            slot.dataset.filled = '';
+                            slot.dataset.letter = '';
+                            slot.classList.remove('filled', 'incorrect');
+                            slot.classList.add('empty');
+                        });
+
+                        // Re-enable all disabled tiles
+                        const tiles = Array.from(document.getElementById('tile-area').children);
+                        tiles.forEach(tile => {
+                            tile.classList.remove('disabled');
+                            tile.style.opacity = '1';
+                            tile.style.pointerEvents = 'auto';
+                        });
+                    }, 1000);
+                }
+            }
+        }
+
+        function backspace() {
+            const filledSlots = Array.from(document.getElementById('target-area').children).filter(slot => slot.dataset.filled === 'true');
+
+            if (filledSlots.length > 0) {
+                const lastSlot = filledSlots[filledSlots.length - 1];
+                const letter = lastSlot.dataset.letter;
+
+                // Remove the letter from the slot
+                lastSlot.textContent = '';
+                lastSlot.dataset.filled = '';
+                lastSlot.dataset.letter = '';
+                lastSlot.classList.remove('filled');
+                lastSlot.classList.add('empty');
+
+                // Re-enable the corresponding tile
+                const tiles = Array.from(document.getElementById('tile-area').children);
+                const matchingTile = tiles.find(tile => tile.dataset.letter === letter && tile.classList.contains('disabled'));
+                if (matchingTile) {
+                    matchingTile.classList.remove('disabled');
+                    matchingTile.style.opacity = '1';
+                    matchingTile.style.pointerEvents = 'auto';
+                }
+            }
+        }
+
+        function shuffle() {
+            const tiles = Array.from(document.getElementById('tile-area').children);
+            const letters = tiles.map(tile => tile.dataset.letter);
+            shuffleArray(letters);
+
+            tiles.forEach((tile, index) => {
+                tile.textContent = letters[index];
+                tile.dataset.letter = letters[index];
+            });
+
+            // Add shuffle animation to tiles
+            tiles.forEach(tile => {
+                tile.classList.add('wiggle');
+                setTimeout(() => {
+                    tile.classList.remove('wiggle');
+                }, 500);
+            });
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            // Check if we completed a difficulty level (every 5 questions)
+            if (currentQuestion % 5 === 0 && currentQuestion < questions.length) {
+                showLevelTransition();
+            } 
+            // Check if game is complete
+            else if (currentQuestion >= questions.length) {
+                showFinalCongrats();
+            } 
+            // Otherwise load next question
+            else {
+                loadQuestion();
+            }
+        }
+
+        function showLevelTransition() {
+            // Hide game system
+            document.getElementById('gameSystem').style.display = 'none';
+            
+            // Determine which transition to show
+            let transitionId = '';
+            if (currentQuestion === 5) {
+                transitionId = 'easy-transition';
+                currentDifficulty = 'medium';
+            } else if (currentQuestion === 10) {
+                transitionId = 'medium-transition';
+                currentDifficulty = 'hard';
+            } else if (currentQuestion === 15) {
+                transitionId = 'hard-transition';
+                currentDifficulty = 'expert';
+            }
+            
+            // Show fireworks for the completed level
+            createFireworks(currentDifficulty === 'easy' ? 'easy' : 
+                          currentDifficulty === 'medium' ? 'medium' : 
+                          currentDifficulty === 'hard' ? 'hard' : 'expert');
+            
+            // Show the transition screen
+            setTimeout(() => {
+                const transition = document.getElementById(transitionId);
+                
+                // Activate transition screen
+                transition.classList.add('active');
+                
+                // Animate elements
+                const levelText = transition.querySelector('.level-text');
+                const subtitle = transition.querySelector('.subtitle');
+                const button = transition.querySelector('.continue-btn');
+                
+                levelText.classList.add('animate-in');
+                subtitle.classList.add('animate-subtitle');
+                button.classList.add('animate-btn');
+                
+                // Create particles
+                createParticles(`${currentDifficulty}-particles`, currentDifficulty);
+            }, 1500);
+        }
+
+        function continueToMedium() {
+            hideTransition('easy');
+            loadQuestion();
+            document.getElementById('gameSystem').style.display = 'flex';
+        }
+
+        function continueToHard() {
+            hideTransition('medium');
+            loadQuestion();
+            document.getElementById('gameSystem').style.display = 'flex';
+        }
+
+        function continueToExpert() {
+            hideTransition('hard');
+            loadQuestion();
+            document.getElementById('gameSystem').style.display = 'flex';
+        }
+
+        function finishGame() {
+            hideTransition('expert');
+            showFinalCongrats();
+        }
+
+        function hideTransition(level) {
+            const transition = document.getElementById(`${level}-transition`);
+            transition.classList.remove('active');
+            
+            // Reset animations
+            const levelText = transition.querySelector('.level-text');
+            const subtitle = transition.querySelector('.subtitle');
+            const button = transition.querySelector('.continue-btn');
+            
+            levelText.classList.remove('animate-in');
+            subtitle.classList.remove('animate-subtitle');
+            button.classList.remove('animate-btn');
+        }
+
+        function showFinalCongrats() {
+            document.getElementById('finalCongrats').style.display = 'flex';
+            createFireworks('expert', 5000); // Longer fireworks for final completion
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 60;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            // Change color as time runs out
+            if (timeLeft <= 10) {
+                document.getElementById('minutes').setAttribute('fill', '#ff3b3b');
+                document.getElementById('seconds').setAttribute('fill', '#ff3b3b');
+            } else {
+                document.getElementById('minutes').setAttribute('fill', '#ffffff');
+                document.getElementById('seconds').setAttribute('fill', '#ffffff');
+            }
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timeLeft = 60;
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    nextQuestion();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function skipQuestion() {
+            // Reset the timer
+            resetTimer();
+            // Move to the next question
+            nextQuestion();
+        }
+
+        function returnToLobby() {
+            // Hide final congrats screen
+            document.getElementById('finalCongrats').style.display = 'none';
+            
+            // Hide game system
+            document.getElementById('gameSystem').style.display = 'none';
+            // Show lobby
+            document.getElementById('gameLobby').style.display = 'flex';
+            // Stop game music
+            gameSystemMusic.pause();
+            gameSystemMusic.currentTime = 0;
+            // Play lobby music
+            document.getElementById('bgMusic').play();
+            // Reset game state
+            currentQuestion = 0;
+            timeLeft = 60;
+            points = 0;
+            updatePointsDisplay();
+            clearInterval(timerInterval);
+        }
+
+        function startGame() {
+            // Play click sound if available
+            if (buttonClickSound) {
+                buttonClickSound.play().catch(e => {});
+            }
+
+            // Add fade out transition
+            const rulesScreen = document.querySelector('.rules-screen');
+            rulesScreen.style.opacity = '0';
+            rulesScreen.style.transition = 'opacity 0.5s ease';
+
+            // Start the loading animation
+            const loadingProgress = document.querySelector('.progress');
+            loadingProgress.style.animation = 'loading 3s linear forwards';
+
+            // Transition to game start screen
+            setTimeout(() => {
+                rulesScreen.style.display = 'none';
+                const gameStartScreen = document.getElementById('gameStartScreen');
+                gameStartScreen.style.display = 'flex';
+                
+                // Start background music
+                const bgMusic = document.getElementById('bgMusic');
+                if (bgMusic) {
+                    bgMusic.play().catch(e => {});
+                }
+
+                // Transition to game lobby after loading
+                setTimeout(() => {
+                    gameStartScreen.style.display = 'none';
+                    document.getElementById('gameLobby').style.display = 'flex';
+                    document.querySelector('.note-logo').style.display = 'block';
+                }, 3000);
+            }, 500);
+        }
+
+        function startGameSystem() {
+            // Create aesthetic flash effect
+            const flashScreen = document.querySelector('.flash-screen');
+            flashScreen.style.display = 'block';
+            flashScreen.classList.add('active');
+
+            // Hide note logo
+            document.querySelector('.note-logo').style.display = 'none';
+
+            // Hide lobby
+            document.getElementById('gameLobby').style.display = 'none';
+
+            // Stop lobby music
+            document.getElementById('bgMusic').pause();
+            document.getElementById('bgMusic').currentTime = 0;
+
+            // Play game music
+            gameSystemMusic.play();
+
+            // Show game system after flash animation
+            setTimeout(() => {
+                document.getElementById('gameSystem').style.display = 'flex';
+                flashScreen.style.display = 'none';
+                flashScreen.classList.remove('active');
+
+                // Show points system with animation
+                document.querySelector('.tech-display').style.display = 'flex';
+
+                // Load first question
+                loadQuestion();
+            }, 2000);
+        }
+
+        function openModal() {
+            document.getElementById('modalContainer').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modalContainer').style.display = 'none';
+        }
+
+        document.getElementById('closeModalBtn').addEventListener('click', function() {
+            closeModal();
+        });
+
+        document.querySelector('.primary-button').addEventListener('click', function() {
+            closeModal();
+        });
+
+        document.getElementById('modalContainer').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        function activatePowerUp(type) {
+            // Play button sound
+            playSound('click');
+
+            switch(type) {
+                case 'doublePoints':
+                    if(!powerUps.doublePoints.active) {
+                        powerUps.doublePoints.active = true;
+                        startPowerUpTimer('doublePoints');
+                        showEffect('⚡ Double Points Active!');
+                    }
+                    break;
+                case 'letterReveal':
+                    if(powerUps.letterReveal.uses > 0) {
+                        revealRandomLetter();
+                        powerUps.letterReveal.uses--;
+                        updatePowerUpDisplay();
+                        showEffect('💡 Letter Revealed!');
+                    }
+                    break;
+                case 'timeFreeze':
+                    if(!powerUps.timeFreeze.active) {
+                        powerUps.timeFreeze.active = true;
+                        pauseTimer();
+                        startPowerUpTimer('timeFreeze');
+                        showEffect('❄️ Time Frozen!');
+                    }
+                    break;
+            }
+        }
+
+        function revealRandomLetter() {
+            const emptySlots = Array.from(document.getElementById('target-area').children).filter(slot => !slot.dataset.filled);
+
+            if (emptySlots.length > 0) {
+                const randomSlot = emptySlots[Math.floor(Math.random() * emptySlots.length)];
+                const correctLetter = questions[currentQuestion].answer[randomSlot.dataset.index];
+
+                // Animated letter reveal
+                randomSlot.textContent = correctLetter;
+                randomSlot.dataset.filled = 'true';
+                randomSlot.dataset.letter = correctLetter;
+                randomSlot.classList.remove('empty');
+                randomSlot.classList.add('filled');
+                randomSlot.style.animation = 'revealLetter 0.5s ease-out';
+
+                // Remove the letter from available tiles
+                const tiles = Array.from(document.getElementById('tile-area').children);
+                const matchingTile = tiles.find(tile => tile.dataset.letter === correctLetter);
+                if (matchingTile) {
+                    matchingTile.remove();
+                }
+            }
+        }
+
+        function startPowerUpTimer(type) {
+            const duration = powerUps[type].duration;
+            const timerElement = document.querySelector(`[onclick="activatePowerUp('${type}')"] .power-up-timer`);
+            timerElement.textContent = duration;
+
+            const timer = setInterval(() => {
+                const currentTime = parseInt(timerElement.textContent);
+                if (currentTime > 0) {
+                    timerElement.textContent = currentTime - 1;
+                } else {
+                    clearInterval(timer);
+                    powerUps[type].active = false;
+                    timerElement.textContent = '';
+
+                    if (type === 'timeFreeze') {
+                        startTimer(); // Resume timer if timeFreeze ends
+                    }
+                }
+            }, 1000);
+        }
+
+        function updatePowerUpDisplay() {
+            const letterRevealElement = document.querySelector(`[onclick="activatePowerUp('letterReveal')"] .power-up-uses`);
+            letterRevealElement.textContent = powerUps.letterReveal.uses;
+        }
+
+        function updatePointsDisplay() {
+            document.querySelector('.tech-number').textContent = points;
+        }
+
+        function createParticles(x, y, color, amount = 20) {
+            for (let i = 0; i < amount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.backgroundColor = color;
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+
+                const angle = (Math.random() * 360) * Math.PI / 180;
+                const velocity = Math.random() * 100 + 50;
+                const lifetime = Math.random() * 1000 + 500;
+
+                particle.style.setProperty('--tx', `${Math.cos(angle) * velocity}px`);
+                particle.style.setProperty('--ty', `${Math.sin(angle) * velocity}px`);
+                particle.style.animation = `particleMove ${lifetime}ms ease-out forwards`;
+
+                document.body.appendChild(particle);
+                setTimeout(() => {
+                    particle.remove();
+                }, lifetime);
+            }
+        }
+
+        function createFireworks(level, duration = 3000) {
+            const container = document.getElementById('fireworks');
+            container.innerHTML = '';
+            
+            const colors = {
+                easy: ['#4CAF50', '#8BC34A', '#CDDC39'],
+                medium: ['#FFC107', '#FF9800', '#FF5722'],
+                hard: ['#FF5722', '#F44336', '#E91E63'],
+                expert: ['#F44336', '#9C27B0', '#673AB7']
+            }[level];
+            
+            // Create 20 firework bursts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    // Random position
+                    const x = Math.random() * window.innerWidth;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Create firework
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = `${x}px`;
+                    firework.style.top = `${y}px`;
+                    firework.style.backgroundColor = color;
+                    
+                    // Add to container
+                    container.appendChild(firework);
+                    
+                    // Animate firework
+                    animateFirework(firework, colors);
+                    
+                    // Create celebration text for some fireworks
+                    if (i % 5 === 0) {
+                        createCelebrationText(x, y + 100, level);
+                    }
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 2000);
+                }, i * 200);
+            }
+            
+            // Create confetti
+            createConfetti(level, duration);
+        }
+
+        function animateFirework(firework, colors) {
+            // Explode animation
+            const particles = 30;
+            const angleIncrement = (Math.PI * 2) / particles;
+            
+            for (let i = 0; i < particles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                const size = Math.random() * 5 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.boxShadow = `0 0 ${size}px ${particle.style.backgroundColor}`;
+                
+                const angle = angleIncrement * i;
+                const distance = Math.random() * 100 + 50;
+                const duration = Math.random() * 1 + 0.5;
+                
+                particle.style.left = '2.5px';
+                particle.style.top = '2.5px';
+                particle.style.position = 'absolute';
+                particle.style.transformOrigin = 'center';
+                
+                firework.appendChild(particle);
+                
+                // Animate particle
+                setTimeout(() => {
+                    particle.style.transition = `all ${duration}s ease-out`;
+                    particle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+                    particle.style.opacity = '0';
+                }, 10);
+            }
+            
+            // Initial pop
+            firework.style.transition = 'all 0.3s';
+            firework.style.transform = 'scale(1.5)';
+            firework.style.opacity = '0.8';
+            
+            setTimeout(() => {
+                firework.style.opacity = '0';
+            }, 300);
+        }
+
+        function createConfetti(level, duration) {
+            const container = document.getElementById('fireworks');
+            const colors = {
+                easy: ['#4CAF50', '#8BC34A', '#CDDC39'],
+                medium: ['#FFC107', '#FF9800', '#FF5722'],
+                hard: ['#FF5722', '#F44336', '#E91E63'],
+                expert: ['#F44336', '#9C27B0', '#673AB7']
+            }[level];
+            const confettiCount = 100;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * window.innerWidth;
+                const shape = Math.random() > 0.5 ? '50%' : '0';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const delay = Math.random() * 2;
+                const fallDuration = Math.random() * 3 + 2;
+                
+                // Set styles
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.left = `${posX}px`;
+                confetti.style.top = `-20px`;
+                confetti.style.background = color;
+                confetti.style.borderRadius = shape;
+                confetti.style.boxShadow = `0 0 5px ${color}`;
+                
+                // Set animation
+                confetti.style.animation = `confettiFall ${fallDuration}s ${delay}s linear forwards`;
+                
+                container.appendChild(confetti);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, (fallDuration + delay) * 1000);
+            }
+        }
+
+        function createCelebrationText(x, y, level) {
+            const texts = {
+                easy: ["GREAT!", "AWESOME!", "NICE!"],
+                medium: ["SKILLED!", "IMPRESSIVE!", "WELL DONE!"],
+                hard: ["AMAZING!", "PRO LEVEL!", "INCREDIBLE!"],
+                expert: ["LEGENDARY!", "MASTERFUL!", "PERFECT!"]
+            }[level];
+            
+            const text = texts[Math.floor(Math.random() * texts.length)];
+            const colors = {
+                easy: '#4CAF50',
+                medium: '#FFC107',
+                hard: '#FF5722',
+                expert: '#F44336'
+            }[level];
+            
+            const textElement = document.createElement('div');
+            textElement.className = 'celebration-text';
+            textElement.textContent = text;
+            textElement.style.color = colors;
+            textElement.style.left = `${x}px`;
+            textElement.style.top = `${y}px`;
+            
+            document.body.appendChild(textElement);
+            
+            // Animate text
+            textElement.style.transition = 'all 1.5s';
+            textElement.style.opacity = '1';
+            textElement.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            
+            setTimeout(() => {
+                textElement.style.opacity = '0';
+                textElement.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                
+                // Remove after animation
+                setTimeout(() => {
+                    textElement.remove();
+                }, 1500);
+            }, 1000);
+        }
+
+        function createParticles(containerId, level) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            const colors = {
+                easy: ['#4CAF50', '#8BC34A', '#CDDC39'],
+                medium: ['#FFC107', '#FF9800', '#FF5722'],
+                hard: ['#FF5722', '#F44336', '#E91E63'],
+                expert: ['#F44336', '#9C27B0', '#673AB7']
+            }[level];
+            
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 3 + 2;
+                const delay = Math.random() * 2;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Set styles
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.background = color;
+                particle.style.boxShadow = `0 0 5px ${color}`;
+                
+                // Set animation
+                particle.style.setProperty('--tx', `${(Math.random() - 0.5) * 200}px`);
+                particle.style.setProperty('--ty', `${(Math.random() - 0.5) * 200}px`);
+                particle.style.animation = `particleMove ${duration}s ${delay}s forwards`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        function updateAchievements(timeSpent) {
+            if (timeSpent <= 20) {
+                achievements.speedSolver.progress++;
+                if (achievements.speedSolver.progress >= achievements.speedSolver.target) {
+                    showAchievementUnlocked(achievements.speedSolver);
+                    powerUps.doublePoints.active = true;
+                    playSound('achievement');
+                }
+            }
+
+            achievements.perfectStreak.progress++;
+            if (achievements.perfectStreak.progress >= achievements.perfectStreak.target) {
+                showAchievementUnlocked(achievements.perfectStreak);
+                powerUps.letterReveal.uses += 3;
+                playSound('achievement');
+            }
+        }
+
+        function showAchievementUnlocked(achievement) {
+            const achievementPopup = document.createElement('div');
+            achievementPopup.className = 'achievement-popup';
+            achievementPopup.innerHTML = `
+                <div class="achievement-content">
+                    <div class="achievement-icon">🏆</div>
+                    <h3>${achievement.name}</h3>
+                    <p>${achievement.description}</p>
+                    <div class="achievement-reward">Reward: ${achievement.reward}</div>
+                </div>
+            `;
+            document.body.appendChild(achievementPopup);
+            setTimeout(() => {
+                achievementPopup.classList.add('show');
+                setTimeout(() => {
+                    achievementPopup.classList.remove('show');
+                    setTimeout(() => achievementPopup.remove(), 500);
+                }, 3000);
+            }, 100);
+        }
+
+        function showEffect(text) {
+            const effect = document.createElement('div');
+            effect.className = 'floating-effect';
+            effect.textContent = text;
+            document.body.appendChild(effect);
+            
+            setTimeout(() => {
+                effect.remove();
+            }, 2000);
+        }
+
+        function playSound(type) {
+            // In a real implementation, you would play the corresponding sound
+            console.log(`Playing sound: ${type}`);
+        }
+
+        // Galactic Fireworks Celebration
+        function launchGalacticFireworks() {
+            const colors = ['#FF9AA2', '#FFB7B2', '#FFDAC1', '#E2F0CB', '#B5EAD7', '#C7CEEA'];
+            
+            // Create 20 firework bursts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    // Random position
+                    const x = Math.random() * window.innerWidth;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Create firework
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = `${x}px`;
+                    firework.style.top = `${y}px`;
+                    firework.style.backgroundColor = color;
+                    
+                    // Add to container
+                    container.appendChild(firework);
+                    
+                    // Animate firework
+                    animateFirework(firework, colors);
+                    
+                    // Create celebration text for some fireworks
+                    if (i % 5 === 0) {
+                        createCelebrationText(x, y + 100, level);
+                    }
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 2000);
+                }, i * 200);
+            }
+        }
+
+        // Trigger Galactic Fireworks on level completion
+        function showLevelTransition() {
+            // Hide game system
+            document.getElementById('gameSystem').style.display = 'none';
+            
+            // Determine which transition to show
+            let transitionId = '';
+            if (currentQuestion === 5) {
+                transitionId = 'easy-transition';
+                currentDifficulty = 'medium';
+            } else if (currentQuestion === 10) {
+                transitionId = 'medium-transition';
+                currentDifficulty = 'hard';
+            } else if (currentQuestion === 15) {
+                transitionId = 'hard-transition';
+                currentDifficulty = 'expert';
+            }
+            
+            // Show fireworks for the completed level
+            createFireworks(currentDifficulty === 'easy' ? 'easy' : 
+                          currentDifficulty === 'medium' ? 'medium' : 
+                          currentDifficulty === 'hard' ? 'hard' : 'expert');
+            launchGalacticFireworks(); // Add Galactic Fireworks
+            
+            // Show the transition screen
+            setTimeout(() => {
+                const transition = document.getElementById(transitionId);
+                
+                // Activate transition screen
+                transition.classList.add('active');
+                
+                // Animate elements
+                const levelText = transition.querySelector('.level-text');
+                const subtitle = transition.querySelector('.subtitle');
+                const button = transition.querySelector('.continue-btn');
+                
+                levelText.classList.add('animate-in');
+                subtitle.classList.add('animate-subtitle');
+                button.classList.add('animate-btn');
+                
+                // Create particles
+                createParticles(`${currentDifficulty}-particles`, currentDifficulty);
+            }, 1500);
+        }
+
+        // Function to create SVG frame for images
+        function createSVGFrame(container, index) {
+            const svgFrame = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svgFrame.setAttribute("class", "svg-frame");
+            svgFrame.setAttribute("viewBox", "0 0 230 230");
+            
+            // SVG frame HTML content with animations
+            svgFrame.innerHTML = `
+                <defs>
+                    <linearGradient id="frame-gradient-${index}" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#00FFFF">
+                            <animate attributeName="stop-color" values="#00FFFF; #4D62F1; #00BFFF; #00FFFF" dur="6s" repeatCount="indefinite" />
+                        </stop>
+                        <stop offset="100%" stop-color="#4D62F1">
+                            <animate attributeName="stop-color" values="#4D62F1; #00FFFF; #00BFFF; #4D62F1" dur="6s" repeatCount="indefinite" />
+                        </stop>
+                    </linearGradient>
+                    <filter id="glow-${index}" x="-30%" y="-30%" width="160%" height="160%">
+                        <feGaussianBlur stdDeviation="5" result="blur"/>
+                        <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                    </filter>
+                </defs>
+                <rect x="5" y="5" width="220" height="220" rx="15" ry="15" fill="none" 
+                    stroke="url(#frame-gradient-${index})" stroke-width="3" 
+                    filter="url(#glow-${index})">
+                    <animate attributeName="stroke-dasharray" values="0,880;880,0" dur="10s" repeatCount="indefinite" />
+                    <animate attributeName="stroke-dashoffset" from="880" to="0" dur="14s" repeatCount="indefinite" />
+                </rect>
+                <path d="M0,0 L15,0 C7,0 0,7 0,15 Z" transform="translate(5,5) rotate(0)" 
+                    fill="url(#frame-gradient-${index})" filter="url(#glow-${index})"/>
+                <path d="M0,0 L15,0 C7,0 0,7 0,15 Z" transform="translate(225,5) rotate(90)" 
+                    fill="url(#frame-gradient-${index})" filter="url(#glow-${index})"/>
+                <path d="M0,0 L15,0 C7,0 0,7 0,15 Z" transform="translate(225,225) rotate(180)" 
+                    fill="url(#frame-gradient-${index})" filter="url(#glow-${index})"/>
+                <path d="M0,0 L15,0 C7,0 0,7 0,15 Z" transform="translate(5,225) rotate(270)" 
+                    fill="url(#frame-gradient-${index})" filter="url(#glow-${index})"/>
+            `;
+            
+            container.appendChild(svgFrame);
+        }
+        
+        // Initialize backspace and shuffle buttons
+        document.getElementById('backspace').addEventListener('click', backspace);
+        document.getElementById('shuffle').addEventListener('click', shuffle);
+
+        window.onload = function() {
+            // Preload sounds
+            Object.values(sounds).forEach(sound => {
+                if (sound) {
+                    sound.load();
+                }
+            });
+
+            // Add click handlers to all buttons
+            document.querySelectorAll('.btn, .power-up, button').forEach(btn => {
+                btn.addEventListener('click', () => playSound('click'));
+            });
+
+            // Make confirm button more visible
+            const confirmButton = document.querySelector('g[onclick="startGame()"]');
+            confirmButton.style.cursor = 'pointer';
+            
+            // Add hover effects
+            confirmButton.addEventListener('mouseenter', () => {
+                confirmButton.querySelector('rect').setAttribute('fill', '#7B68EE');
+            });
+            
+            confirmButton.addEventListener('mouseleave', () => {
+                confirmButton.querySelector('rect').setAttribute('fill', '#4B0082');
+            });
+        };
+    </script>
+</body>
+</html>
